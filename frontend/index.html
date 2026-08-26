@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Golden Blue Quartz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Bebas Neue: free, used for the big condensed statement type -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Pretendard: free/open-source Korean-optimized body font -->
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"
+    />
+    <!-- OverusedGrotesk is a paid commercial font (Displaay Type Foundry) — not
+     redistributable here. @font-face rules for it live in fonts.css and
+     point at frontend/fonts/, which is empty until you add your licensed
+     .woff2 files there (see README). A free fallback is used until then. -->
+    <link rel="stylesheet" href="fonts.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- ============ AGE GATE ============ -->
+    <div class="age-gate" id="age-gate">
+      <div class="age-gate__card">
+        <p class="age-gate__mark">GOLDEN BLUE <em>QUARTZ</em></p>
+        <h2>Та 21 нас хүрсэн үү?</h2>
+        <p class="age-gate__sub">Зөвхөн 21 нас хүрсэн хүн зочлох боломжтой.</p>
+        <div class="age-gate__actions">
+          <button class="btn btn--gate-yes" id="age-yes" type="button">
+            Тийм
+          </button>
+          <button class="btn btn--gate-no" id="age-no" type="button">
+            Үгүй
+          </button>
+        </div>
+      </div>
+      <div class="age-gate__blocked" id="age-blocked" hidden>
+        <p>Уучлаарай — Та 21 нас хүрээгүй учир нэвтрэх боломжгүй байна.</p>
+      </div>
+    </div>
+
+    <!-- No header nav bar — the swiper itself is the navigation. Just a small fixed mark. -->
+    <div class="brand-mark" aria-hidden="true">GOLDEN BLUE <em>QUARTZ</em></div>
+
+    <div class="swiper" id="quartz-swiper">
+      <div class="swiper-wrapper">
+        <!-- ============ SLIDE 1 — HERO ============ -->
+        <section class="swiper-slide slide slide--hero">
+          <div class="slide__ghost" aria-hidden="true">QUARTZ</div>
+          <div class="slide__content">
+            <p class="eyebrow">GOLDEN BLUE</p>
+            <h1 class="hero-title">
+              New<br /><span class="reveal-word" tabindex="0">
+                <span class="reveal-word__bracket">[</span
+                ><span class="reveal-word__hidden">QUARTZ</span
+                ><span class="reveal-word__bracket">]</span> </span
+              ><br />
+              Whisky
+            </h1>
+            <p class="hero-sub">QUARTZ</p>
+          </div>
+          <div class="scroll-hint" aria-hidden="true">Scroll</div>
+        </section>
+
+        <!-- ============ SLIDE 2 — STATEMENT + BOTTLE ============ -->
+        <section class="swiper-slide slide slide--statement">
+          <div class="slide__bg-bottle" aria-hidden="true">
+            <img
+              src="images/quartz-bottle.jpg"
+              alt="Golden Blue Quartz bottle"
+            />
+            <div class="img-placeholder">
+              <span>Quartz bottle photo</span
+              ><small>images/quartz-bottle.jpg</small>
+            </div>
+          </div>
+          <div class="slide__content slide__content--left">
+            <p class="statement-text">
+              Create a new <br /><span class="reveal-word" tabindex="0">
+                <span class="reveal-word__bracket">[</span
+                ><span class="reveal-word__hidden">Blue</span
+                ><span class="reveal-word__bracket">]</span> </span
+              ><br />wave of whisky.
+            </p>
+            <p class="statement-desc">
+              Golden Blue-ийн олон жилийн туршлага, мэдлэгт тулгуурлан бүтээсэн,
+              Хэрэглэгчдийн амтанд нийцсэн шинэ төрлийн виски Golden Blue
+              Quartz.
+            </p>
+          </div>
+        </section>
+        <!-- ============ SLIDE 2B — TRENDY (dark) ============ -->
+        <section
+          class="swiper-slide slide slide--bottle-feature slide--bottle-feature--dark"
+        >
+          <div class="bf-label">[ TRENDY ]</div>
+          <div class="bf-circle">
+            <img src="images/2b2-image.png" alt="Golden Blue Quartz bottle" />
+          </div>
+          <p class="bf-caption">
+            Sensitive blue bottle<br />with simple and<br />Golden Blue Quartz
+            нь Шотланд гаралтай вискиний түүхий эдээр БНСУ-д үйлдвэрлэсэн, 36.5
+            хувийн спиртийн агууламжтай премиум виски юм.
+          </p>
+          <button class="bf-top" type="button" aria-label="Back to top">
+            TOP
+          </button>
+        </section>
+
+        <!-- ============ SLIDE 2C — SMOOTH QUARTZ (light) ============ -->
+        <section
+          class="swiper-slide slide slide--bottle-feature slide--bottle-feature--light"
+        >
+          <div class="bf-label">[ SMOOTH<br />QUARTZ ]</div>
+          <div class="bf-circle">
+            <img src="images/2b1-image.png" alt="Golden Blue Quartz bottle" />
+          </div>
+          <p class="bf-caption">
+            Жимсний баялаг үнэр, карамелийн амтлаг өнгө аяс, самрын зөөлөн амтыг
+            хослуулсан энэхүү бүтээгдэхүүн нь тэнцвэртэй, таатай амтаараа онцлог
+            бөгөөд Monde Selection олон улсын чанарын үнэлгээний алтан шагналыг
+            2025, 2026 онд хүртэв.
+          </p>
+          <button class="bf-top" type="button" aria-label="Back to top">
+            TOP
+          </button>
+        </section>
+        <!-- ============ SLIDE 3 — ABOUT / HIDDEN INFO TILES ============ -->
+        <section class="swiper-slide slide slide--about">
+          <div class="slide__content">
+            <p class="eyebrow">SMOOTH QUARTZ</p>
+            <h2 class="section-title">[ ABOUT ]<br />[ GOLDEN BLUE QUARTZ ]</h2>
+            <div class="about-grid">
+              <button class="about-tile" type="button">
+                <img src="images/2.png" alt="Golden Blue Quartz bottle" />
+                <span class="about-tile__hidden"
+                  >36.5% ABV<br />Blended spirit</span
+                >
+              </button>
+              <button class="about-tile" type="button">
+                <img src="images/3.png" alt="Botanicals and spices" />
+                <span class="about-tile__hidden"
+                  >Цэцгийн зөөлөн үнэр, ванилийн амтлаг мэдрэмж<br />&amp;
+                  Ванилийн амтлаг байдал, самрын баялаг амт</span
+                >
+              </button>
+              <button class="about-tile" type="button">
+                <img
+                  src="images/neg.png"
+                  alt="Cheese and fruit pairing board"
+                />
+                <span class="about-tile__hidden"
+                  >Best served<br />with a light board</span
+                >
+              </button>
+            </div>
+            <p class="tile-hint" aria-hidden="true">Hover or tap a tile</p>
+          </div>
+        </section>
+
+        <!-- ============ SLIDE 6 — BIG STATEMENTS + VIDEOS ============ -->
+        <section class="swiper-slide slide slide--big-statement">
+          <div class="slide__content slide__content--wide">
+            <div class="bs-toprow">
+              <span>MEET QUARTZ</span>
+              <span class="bs-toprow__accent">[ NEW BLUE ]</span>
+              <span>A WHOLE NEW WAVE OF WHISKY</span>
+            </div>
+
+            <div class="bs-row">
+              <h2 class="big-statement">
+                THE FIRST <span class="bs-bracket">[ BLUE ]</span>
+              </h2>
+              <a
+                class="bs-video"
+                href="https://www.youtube.com/watch?v=0N_7NSrtbL8&list=PL0QLWrAchadbDWWFGw8ef6qz0slmHdaT9&index=17"
+                target="_blank"
+                rel="noopener"
+                aria-label="Watch on YouTube"
+              >
+                <img
+                  src="https://img.youtube.com/vi/0N_7NSrtbL8/hqdefault.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+                <span class="bs-video__play" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+              </a>
+            </div>
+
+            <div class="bs-row">
+              <h2 class="big-statement">
+                FALL IN <span class="bs-bracket">[ BLUE ]</span>
+              </h2>
+              <a
+                class="bs-video"
+                href="https://www.youtube.com/watch?v=_XvFcYKbXHs&list=PL0QLWrAchadbDWWFGw8ef6qz0slmHdaT9&index=15"
+                target="_blank"
+                rel="noopener"
+                aria-label="Watch on YouTube"
+              >
+                <img
+                  src="https://img.youtube.com/vi/_XvFcYKbXHs/hqdefault.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+                <span class="bs-video__play" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ SLIDE — ABOUT THE COMPANY ============ -->
+        <section class="swiper-slide slide slide--company">
+          <div class="slide__content slide__content--wide">
+            <h2 class="section-title">БИДНИЙ ТУХАЙ</h2>
+            <p class="body-text body-text--light company-intro">
+              Golden Blue нь Бүгд Найрамдах Солонгос Улсын Пусан хотод төвтэй,
+              2003 онд байгуулагдсан согтууруулах ундаа үйлдвэрлэгч компани юм.
+              2009 онд 36.5 хувийн хатуулагтай Golden Blue брэндийг танилцуулж,
+              Солонгосын зах зээлд зөөлөн амттай вискиний шинэ чиг хандлагыг бий
+              болгосон. Бид Монголд анх удаа энэхүү 36.5 хувийн хатуулагтай
+              вискийг албан ёсоор танилцуулж, зөөлөн амт, дээд зэрэглэлийн
+              чанарын шинэ жишгийг тогтоохыг зорьж байна.
+            </p>
+
+            <div class="company-grid">
+              <div class="company-stat">
+                <span class="company-stat__num">2003</span>
+                <span class="company-stat__label"
+                  >Пусан хотод байгуулагдсан</span
+                >
+              </div>
+              <div class="company-stat">
+                <span class="company-stat__num">2024</span>
+                <span class="company-stat__label"
+                  >Golden Blue Quartz танилцуулсан</span
+                >
+              </div>
+              <div class="company-stat">
+                <span class="company-stat__num">36.5%</span>
+                <span class="company-stat__label">Хатуулаг</span>
+              </div>
+            </div>
+
+            <div class="company-awards">
+              <p class="company-awards__title">ОЛОН УЛСЫН ҮНЭЛГЭЭ</p>
+              <ul class="company-awards__list">
+                <li>
+                  San Francisco World Spirits Competition 2025 — Мөнгөн медаль
+                </li>
+                <li>
+                  San Francisco World Spirits Competition 2026 — Мөнгөн медаль
+                </li>
+                <li>
+                  International Wine &amp; Spirit Competition 2026 — Мөнгөн
+                  медаль, 90 оноо
+                </li>
+              </ul>
+            </div>
+
+            <div class="company-distributor">
+              <p class="company-distributor__title">АЛБАН ЁСНЫ ДИСТРИБЬЮТОР</p>
+              <p>
+                <strong>АБЕ ЭНД АА ХХК</strong> — Golden Blue брэндийн Монгол
+                дахь албан ёсны дистрибьютор
+              </p>
+              <p>
+                Улаанбаатар хот, Баянзүрх дүүрэг, 26 дугаар хороо, Энканто
+                тауэр, А блок, 19 давхар
+              </p>
+              <p>+976 7708 3034 · goldenblue@goldenblue.mn</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ SLIDE 7 — MERCH ============ -->
+        <section class="swiper-slide slide slide--merch">
+          <div class="slide__content slide__content--wide">
+            <p class="eyebrow">Худалдан авагчийн бэлэг</p>
+            <h2 class="section-title">энэ дээр<br />юу гэхвээ?.</h2>
+
+            <div class="merch-grid">
+              <!-- Tee — hover/tap color swap -->
+              <div class="merch-card" data-quartz-hover>
+                <button
+                  class="merch-card__media gbq-image-button"
+                  type="button"
+                  aria-label="Toggle tee color"
+                >
+                  <img
+                    class="gbq-image gbq-image--white"
+                    src="images/quartz-white.png"
+                    alt="Golden Blue Quartz white tee"
+                    decoding="async"
+                  />
+                  <img
+                    class="gbq-image gbq-image--blue"
+                    src="images/quartz-blue.png"
+                    alt="Golden Blue Quartz blue tee"
+                    decoding="async"
+                  />
+                  <span class="gbq-hint" aria-hidden="true">White</span>
+                </button>
+                <div class="merch-card__info">
+                  <span class="merch-card__name">QUARTZ OVERSIZED TEE</span>
+                  <span class="merch-card__detail"
+                    >Heavyweight cotton · Relaxed fit</span
+                  >
+                </div>
+              </div>
+
+              <!-- Glassware set -->
+              <button class="merch-card merch-card--reveal" type="button">
+                <span class="merch-card__media">
+                  <img
+                    src="images/glassware-set.png"
+                    alt="Golden Blue glassware set"
+                    loading="lazy"
+                  />
+                  <span class="merch-card__overlay">
+                    <strong>Хундаганы цуглуулга</strong>
+                    Бла2Бла2Бла2Бла2 Бла2Бла2Бла2Бла2Бла2Бла2Бла2 Бла2.
+                  </span>
+                </span>
+                <span class="merch-card__info">
+                  <span class="merch-card__name">GLASSWARE SET</span>
+                  <span class="merch-card__detail">4-piece set</span>
+                </span>
+              </button>
+
+              <!-- Ice box -->
+              <button class="merch-card merch-card--reveal" type="button">
+                <span class="merch-card__media">
+                  <img
+                    src="images/ice-box.png"
+                    alt="Golden Blue ice box"
+                    loading="lazy"
+                  />
+                  <span class="merch-card__overlay">
+                    <strong>Ice Box</strong>
+                    Mirrored lid, silver-crested logo, built for the full serve.
+                  </span>
+                </span>
+                <span class="merch-card__info">
+                  <span class="merch-card__name">ICE BOX</span>
+                  <span class="merch-card__detail">Weighted glass</span>
+                </span>
+              </button>
+            </div>
+            <p class="tile-hint" aria-hidden="true">Hover or tap a piece</p>
+          </div>
+        </section>
+
+        <!-- ============ SLIDE 8 — CONTACT ============ -->
+        <section class="swiper-slide slide slide--contact">
+          <div class="slide__content contact-grid">
+            <div class="contact-text">
+              <p class="eyebrow eyebrow--dark">Захиалга &amp; Холбоо барих</p>
+              <h2 class="section-title section-title--dark">
+                Та манай бүтээгдэхүүнийг<br />сонирхож байна уу?
+              </h2>
+              <p class="body-text">
+                Та бидэнд мэдээллээ илгээснээр бид танитай эргэн холбогдох
+                болно.
+              </p>
+              <div class="social-row">
+                <a
+                  href="https://www.instagram.com/goldenblue_mn/"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Instagram"
+                  >Instagram</a
+                >
+                <a
+                  href="https://www.facebook.com/share/19StkhL5Sr/?mibextid=wwXIfr"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Facebook"
+                  >Facebook</a
+                >
+              </div>
+            </div>
+            <form class="contact-form" id="contact-form">
+              <label>
+                <span>Нэр</span>
+                <input type="text" name="name" required autocomplete="name" />
+              </label>
+              <label>
+                <span>Утасны дугаар</span>
+                <input
+                  type="tel"
+                  name="phone"
+                  required
+                  autocomplete="tel"
+                  placeholder="+976 ..."
+                />
+              </label>
+              <label>
+                <span>Тоо ширхэг (bottles)</span>
+                <input
+                  type="number"
+                  name="quantity"
+                  min="1"
+                  required
+                  placeholder="жишээ нь 12 bottle whiskey..."
+                />
+              </label>
+              <label>
+                <span>Таны цахим хаяг <em>(заавал биш)</em></span>
+                <input type="email" name="email" autocomplete="email" />
+              </label>
+              <label>
+                <span
+                  >Захиалгын дэлгэрэнгүй мэдээлэл <em>(заавал биш)</em></span
+                >
+                <textarea name="message" rows="3"></textarea>
+              </label>
+              <button type="submit" class="btn" id="contact-submit">
+                Захиалга баталгаажуулах
+              </button>
+              <p
+                class="contact__status"
+                id="contact-status"
+                role="status"
+                aria-live="polite"
+              ></p>
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

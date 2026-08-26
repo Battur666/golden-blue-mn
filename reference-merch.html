@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="mn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Golden Blue Quartz — Interactive Apparel</title>
+    <meta
+      name="description"
+      content="Golden Blue Quartz футболкны цагаан, цэнхэр хувилбар."
+    />
+    <link rel="stylesheet" href="quartz-hover.css" />
+  </head>
+  <body>
+    <main class="gbq-page">
+      <header class="gbq-header">
+        <a class="gbq-brand" href="#quartz-apparel" aria-label="Golden Blue Quartz">
+          <span>GOLDEN BLUE</span>
+          <strong>QUARTZ</strong>
+        </a>
+        <span class="gbq-edition">MERCHANDISE · 2026</span>
+      </header>
+
+      <section class="gbq-section" id="quartz-apparel">
+        <div class="gbq-intro">
+          <p class="gbq-eyebrow">GOLDEN BLUE QUARTZ</p>
+          <h1>One design.<br />Two expressions.</h1>
+          <p class="gbq-description">
+            Signature oversized cotton tee, designed in crisp white and
+            unmistakable Quartz blue.
+          </p>
+        </div>
+
+        <!-- START: Энэ хэсгийг өөрийн вэбсайтын хүссэн газар байрлуулна. -->
+        <div class="gbq-product" data-quartz-hover>
+          <button
+            class="gbq-image-button"
+            type="button"
+            aria-label="Футболкны өнгийг цагаанаас цэнхэр болгох"
+          >
+            <img
+              class="gbq-image gbq-image--white"
+              src="assets/quartz-white.png"
+              alt="Golden Blue Quartz цагаан футболк, урд ба арын загвар"
+              decoding="async"
+            />
+            <img
+              class="gbq-image gbq-image--blue"
+              src="assets/quartz-blue.png"
+              alt="Golden Blue Quartz цэнхэр футболк, урд ба арын загвар"
+              decoding="async"
+            />
+            <span class="gbq-hint" aria-hidden="true">HOVER TO DISCOVER</span>
+          </button>
+
+          <div class="gbq-product-info">
+            <div>
+              <p class="gbq-product-name">QUARTZ OVERSIZED TEE</p>
+              <p class="gbq-product-detail">Heavyweight cotton · Relaxed fit</p>
+            </div>
+            <div class="gbq-swatches" aria-label="Боломжит өнгөнүүд">
+              <span class="gbq-swatch gbq-swatch--white" aria-label="Цагаан"></span>
+              <span class="gbq-swatch gbq-swatch--blue" aria-label="Цэнхэр"></span>
+            </div>
+          </div>
+        </div>
+        <!-- END: Интерактив футболкны хэсэг. -->
+      </section>
+
+      <footer class="gbq-footer">
+        <span>THE NEW STANDARD OF SMOOTH.</span>
+        <span>GOLDEN BLUE QUARTZ</span>
+      </footer>
+    </main>
+
+    <script src="quartz-hover.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+/* OverusedGrotesk — Displaay Type Foundry, commercial license required.
+   Drop your licensed files into frontend/fonts/ with these exact names
+   and they'll be picked up automatically. Until then, the font-family
+   fallback chain (see styles.css) uses a free lookalike instead. */
+
+@font-face {
+  font-family: "OverusedGrotesk";
+  src: url("fonts/OverusedGrotesk-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "OverusedGrotesk";
+  src: url("fonts/OverusedGrotesk-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "OverusedGrotesk";
+  src: url("fonts/OverusedGrotesk-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
