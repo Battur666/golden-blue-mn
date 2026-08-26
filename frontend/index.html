@@ -103,42 +103,35 @@
             </p>
           </div>
         </section>
-        <!-- ============ SLIDE 2B — TRENDY (dark) ============ -->
-        <section
-          class="swiper-slide slide slide--bottle-feature slide--bottle-feature--dark"
-        >
-          <div class="bf-label">[ TRENDY ]</div>
-          <div class="bf-circle">
-            <img src="images/2b2-image.png" alt="Golden Blue Quartz bottle" />
-          </div>
-          <p class="bf-caption">
-            Sensitive blue bottle<br />with simple and<br />Golden Blue Quartz
-            нь Шотланд гаралтай вискиний түүхий эдээр БНСУ-д үйлдвэрлэсэн, 36.5
-            хувийн спиртийн агууламжтай премиум виски юм.
-          </p>
-          <button class="bf-top" type="button" aria-label="Back to top">
-            TOP
-          </button>
-        </section>
+        <!-- ============ SLIDE 2B/2C — BOTTLE TRANSITION (scroll-linked overlay) ============ -->
+<section class="swiper-slide slide slide--bottle-transition" id="bottle-transition">
+  <div class="bf-layer bf-layer--bottom slide--bottle-feature--dark" data-layer="bottom">
+    <div class="bf-label">[ TRENDY ]</div>
+    <div class="bf-circle">
+      <img src="images/2b2-image.png" alt="Golden Blue Quartz bottle" />
+    </div>
+    <p class="bf-caption">
+      Sensitive blue bottle<br />with simple and<br />Golden Blue Quartz
+      нь Шотланд гаралтай вискиний түүхий эдээр БНСУ-д үйлдвэрлэсэн, 36.5
+      хувийн спиртийн агууламжтай премиум виски юм.
+    </p>
+  </div>
 
-        <!-- ============ SLIDE 2C — SMOOTH QUARTZ (light) ============ -->
-        <section
-          class="swiper-slide slide slide--bottle-feature slide--bottle-feature--light"
-        >
-          <div class="bf-label">[ SMOOTH<br />QUARTZ ]</div>
-          <div class="bf-circle">
-            <img src="images/2b1-image.png" alt="Golden Blue Quartz bottle" />
-          </div>
-          <p class="bf-caption">
-            Жимсний баялаг үнэр, карамелийн амтлаг өнгө аяс, самрын зөөлөн амтыг
-            хослуулсан энэхүү бүтээгдэхүүн нь тэнцвэртэй, таатай амтаараа онцлог
-            бөгөөд Monde Selection олон улсын чанарын үнэлгээний алтан шагналыг
-            2025, 2026 онд хүртэв.
-          </p>
-          <button class="bf-top" type="button" aria-label="Back to top">
-            TOP
-          </button>
-        </section>
+  <div class="bf-layer bf-layer--top slide--bottle-feature--light" data-layer="top">
+    <div class="bf-label">[ SMOOTH<br />QUARTZ ]</div>
+    <div class="bf-circle">
+      <img src="images/2b1-image.png" alt="Golden Blue Quartz bottle" />
+    </div>
+    <p class="bf-caption">
+      Жимсний баялаг үнэр, карамелийн амтлаг өнгө аяс, самрын зөөлөн амтыг
+      хослуулсан энэхүү бүтээгдэхүүн нь тэнцвэртэй, таатай амтаараа онцлог
+      бөгөөд Monde Selection олон улсын чанарын үнэлгээний алтан шагналыг
+      2025, 2026 онд хүртэв.
+    </p>
+  </div>
+
+  <button class="bf-top" type="button" aria-label="Back to top">TOP</button>
+</section>
         <!-- ============ SLIDE 3 — ABOUT / HIDDEN INFO TILES ============ -->
         <section class="swiper-slide slide slide--about">
           <div class="slide__content">
@@ -264,35 +257,23 @@
               </div>
             </div>
 
-            <div class="company-awards">
-              <p class="company-awards__title">ОЛОН УЛСЫН ҮНЭЛГЭЭ</p>
-              <ul class="company-awards__list">
-                <li>
-                  San Francisco World Spirits Competition 2025 — Мөнгөн медаль
-                </li>
-                <li>
-                  San Francisco World Spirits Competition 2026 — Мөнгөн медаль
-                </li>
-                <li>
-                  International Wine &amp; Spirit Competition 2026 — Мөнгөн
-                  медаль, 90 оноо
-                </li>
-              </ul>
-            </div>
+           <div class="company-bottom">
+  <div class="company-awards">
+    <p class="company-awards__title">ОЛОН УЛСЫН ҮНЭЛГЭЭ</p>
+    <ul class="company-awards__list">
+      <li>San Francisco World Spirits Competition 2025 — Мөнгөн медаль</li>
+      <li>San Francisco World Spirits Competition 2026 — Мөнгөн медаль</li>
+      <li>International Wine &amp; Spirit Competition 2026 — Мөнгөн медаль, 90 оноо</li>
+    </ul>
+  </div>
 
-            <div class="company-distributor">
-              <p class="company-distributor__title">АЛБАН ЁСНЫ ДИСТРИБЬЮТОР</p>
-              <p>
-                <strong>АБЕ ЭНД АА ХХК</strong> — Golden Blue брэндийн Монгол
-                дахь албан ёсны дистрибьютор
-              </p>
-              <p>
-                Улаанбаатар хот, Баянзүрх дүүрэг, 26 дугаар хороо, Энканто
-                тауэр, А блок, 19 давхар
-              </p>
-              <p>+976 7708 3034 · goldenblue@goldenblue.mn</p>
-            </div>
-          </div>
+  <div class="company-distributor">
+    <p class="company-distributor__title">АЛБАН ЁСНЫ ДИСТРИБЬЮТОР</p>
+    <p><strong>АБЕ ЭНД АА ХХК</strong> — Golden Blue брэндийн Монгол дахь албан ёсны дистрибьютор</p>
+    <p>Улаанбаатар хот, Баянзүрх дүүрэг, 26 дугаар хороо, Энканто тауэр, А блок, 19 давхар</p>
+    <p>+976 7708 3034 · goldenblue@goldenblue.mn</p>
+  </div>
+</div>
         </section>
 
         <!-- ============ SLIDE 7 — MERCH ============ -->
@@ -393,6 +374,7 @@
                   aria-label="Instagram"
                   >Instagram</a
                 >
+
                 <a
                   href="https://www.facebook.com/share/19StkhL5Sr/?mibextid=wwXIfr"
                   target="_blank"
@@ -403,10 +385,28 @@
               </div>
             </div>
             <form class="contact-form" id="contact-form">
-              <label>
-                <span>Нэр</span>
-                <input type="text" name="name" required autocomplete="name" />
-              </label>
+              <fieldset class="order-type">
+                <legend>Захиалгын төрөл</legend>
+                <label class="order-type__option">
+                  <input
+                    type="radio"
+                    name="orderType"
+                    value="individual"
+                    required
+                    checked
+                  />
+                  <span>Хувь хүн</span>
+                </label>
+                <label class="order-type__option">
+                  <input
+                    type="radio"
+                    name="orderType"
+                    value="organization"
+                    required
+                  />
+                  <span>Байгууллага</span>
+                </label>
+              </fieldset>
               <label>
                 <span>Утасны дугаар</span>
                 <input

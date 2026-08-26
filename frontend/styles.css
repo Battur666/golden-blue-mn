@@ -661,8 +661,12 @@ body.gate-locked {
 }
 /* ============ About / hidden info tiles ============ */
 .slide--about {
-  background: var(--cream);
-  color: var(--ink);
+  background: radial-gradient(
+    120% 100% at 30% 10%,
+    var(--blue-deep) 0%,
+    var(--navy) 65%
+  );
+  color: var(--cream);
 }
 .slide--about .eyebrow {
   color: #b06a2e;
@@ -680,7 +684,7 @@ body.gate-locked {
 .about-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 60px;
 }
 .about-tile {
   position: relative;
@@ -847,76 +851,88 @@ body.gate-locked {
     var(--navy) 65%
   );
   color: var(--cream);
+  padding-top: 60px;
+  padding-bottom: 24px;
+  overflow-y: auto;
 }
 .slide--company .section-title {
   color: var(--cream);
+  margin-bottom: 20px;
 }
+
 .company-intro {
-  margin: 0 auto 40px;
+  margin: 0 auto 20px;
+  max-width: 70ch;
+  font-size: clamp(12px, 1vw, 14px);
+  line-height: 1.5;
 }
 
 .company-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  margin-bottom: 40px;
-  padding-top: 24px;
+  margin-bottom: 20px;
+  padding-top: 12px;
   border-top: 1px solid rgba(243, 239, 230, 0.15);
 }
-.company-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 .company-stat__num {
-  font-family: var(--font-heading);
-  font-size: 28px;
-  color: var(--blue);
+  font-size: clamp(18px, 2vw, 26px);
 }
 .company-stat__label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: rgba(243, 239, 230, 0.6);
-  margin-top: 6px;
-  text-align: center;
+  font-size: 10px;
+  margin-top: 4px;
 }
 
+.company-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
 .company-awards,
 .company-distributor {
-  text-align: left;
-  max-width: 560px;
-  margin: 0 auto 28px;
-  font-size: 13px;
-  line-height: 1.7;
-  color: rgba(243, 239, 230, 0.8);
-}
-.company-awards__title,
-.company-distributor__title {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  color: var(--blue);
-  margin: 0 0 10px;
+  font-size: 11.5px;
+  line-height: 1.45;
+  margin: 0;
 }
 .company-awards__list {
   margin: 0;
-  padding-left: 18px;
+  padding-left: 16px;
+}
+.company-awards__list li {
+  margin-bottom: 2px;
 }
 .company-distributor p {
-  margin: 0 0 4px;
-}
-.company-distributor strong {
-  color: var(--cream);
+  margin: 0 0 3px;
 }
 
 @media (max-width: 700px) {
+  .company-bottom {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
   .company-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 12px;
   }
 }
 .social-row a {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
   color: var(--cream);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--blue);
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+.social-row a:hover {
+  color: var(--blue);
+  border-color: var(--cream);
 }
 
 .contact-form label {
@@ -1031,8 +1047,12 @@ body.gate-locked {
 
 /* ============ Contact ============ */
 .slide--contact {
-  background: var(--cream);
-  color: var(--ink);
+  background: radial-gradient(
+    120% 100% at 30% 10%,
+    var(--blue-deep) 0%,
+    var(--navy) 65%
+  );
+  color: var(--cream);
 }
 .slide--contact .eyebrow--dark {
   color: var(--blue);
@@ -1054,7 +1074,6 @@ body.gate-locked {
   font-size: 12px;
   letter-spacing: 0.06em;
   text-decoration: underline;
-  color: var(--navy);
 }
 .contact-form {
   display: flex;
@@ -1140,4 +1159,56 @@ body.gate-locked {
   .scroll-hint {
     animation: none;
   }
+}
+.order-type {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px;
+}
+.order-type legend {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #6b6656;
+  margin: 0 0 8px;
+  width: 100%;
+}
+.order-type__option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+}
+.order-type__option input {
+  accent-color: var(--blue);
+}
+.slide--bottle-transition {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+}
+.bf-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 32px 60px;
+}
+.bf-layer--bottom {
+  z-index: 1;
+  opacity: 1;
+}
+.bf-layer--top {
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.05s linear;
+}
+.bf-layer--top.is-active {
+  pointer-events: auto;
 }

@@ -64,7 +64,7 @@ swiper.on("slideChangeTransitionEnd", () => {
   const reveals = activeSlide.querySelectorAll(
     ".statement-desc, .bf-circle, .bf-label, .bf-caption",
   );
-  reveals.forEach((el, i) => {
+  reveals.forEach((el) => {
     setTimeout(() => el.classList.add("is-visible"), 150);
   });
 });
@@ -77,9 +77,11 @@ window.addEventListener("load", () => {
     .querySelectorAll(".statement-desc, .bf-circle, .bf-label, .bf-caption")
     .forEach((el) => el.classList.add("is-visible"));
 });
+
 document.querySelectorAll(".bf-top").forEach((btn) => {
   btn.addEventListener("click", () => swiper.slideTo(0));
 });
+
 // ============================================
 // Hover-reveal elements: on touch devices there is no hover, so
 // auto-reveal them as they scroll into view instead.
@@ -102,9 +104,8 @@ if (isTouch) {
 }
 
 // ============================================
-// Merch tee color-swap — now targets .merch-card instead of the old
-// .gbq-product wrapper. Click/tap toggles on all devices; hover is a
-// bonus on devices that support it.
+// Merch tee color-swap — targets .merch-card wrapper. Click/tap toggles
+// on all devices; hover is a bonus on devices that support it.
 // ============================================
 (function initializeQuartzHover() {
   document.querySelectorAll("[data-quartz-hover]").forEach((product) => {
@@ -134,7 +135,14 @@ if (isTouch) {
 // ============================================
 // Contact / order form
 // ============================================
-const CONTACT_ENDPOINT = "/api/contact";
+// NOTE: replace YOUR-BACKEND-URL-HERE with your real Render URL once
+// the backend is deployed (see backend deployment steps).
+const CONTACT_ENDPOINT =
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1"
+    ? "http://localhost:3001/api/contact"
+    : "https://golden-blue-mn.onrender.com/api/contact";
+
 const form = document.getElementById("contact-form");
 const status = document.getElementById("contact-status");
 const submitBtn = document.getElementById("contact-submit");
@@ -142,7 +150,7 @@ const submitBtn = document.getElementById("contact-submit");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const data = {
-    name: form.name.value.trim(),
+    orderType: form.orderType.value,
     phone: form.phone.value.trim(),
     quantity: form.quantity.value.trim(),
     email: form.email.value.trim(),
@@ -161,14 +169,87 @@ form.addEventListener("submit", async (e) => {
       body: JSON.stringify(data),
     });
     if (!res.ok) throw new Error("Request failed");
-    status.textContent = "Sent — we'll be in touch.";
+    status.textContent = "Баярлалаа бид таны хүсэлтийг хүлээн авлаа.";
     status.classList.add("is-success");
     form.reset();
   } catch (err) {
-    status.textContent = "Something went wrong. Please try again.";
+    status.textContent = "Уучлаарай алдаа гарсан тул түр хүлээгээрэй.";
     status.classList.add("is-error");
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = "Send order request";
+    submitBtn.textContent = "Таны хүсэлтийг илгээж байна.";
   }
 });
+// ============================================
+// Scroll-linked overlay: TRENDY layer stays fixed while the visitor
+// scrolls, until SMOOTH QUARTZ has fully faded in on top of it —
+// then, and only then, does the next wheel/swipe move Swiper forward.
+// ============================================
+(function bottleTransition() {
+  const section = document.getElementById("bottle-transition");
+  if (!section) return;
+  const topLayer = section.querySelector(".bf-layer--top");
+  let progress = 0; // 0 = TRENDY fully visible, 1 = SMOOTH QUARTZ fully covers it
+  const STEP = 0.15;
+
+  function setProgress(p) {
+    progress = Math.min(1, Math.max(0, p));
+    topLayer.style.opacity = progress;
+    topLayer.classList.toggle("is-active", progress > 0.5);
+  }
+
+  function isActiveSlide() {
+    return swiper.slides[swiper.activeIndex] === section;
+  }
+
+  section.addEventListener(
+    "wheel",
+    (e) => {
+      if (!isActiveSlide()) return;
+      const goingDown = e.deltaY > 0;
+      const goingUp = e.deltaY < 0;
+
+      if (goingDown && progress < 1) {
+        e.preventDefault();
+        e.stopPropagation();
+        setProgress(progress + STEP);
+      } else if (goingUp && progress > 0) {
+        e.preventDefault();
+        e.stopPropagation();
+        setProgress(progress - STEP);
+      }
+      // else: already at the limit in that direction — let the event
+      // through so Swiper advances to the next/previous real slide.
+    },
+    { passive: false },
+  );
+
+  // Touch support — same idea, using drag distance instead of wheel delta.
+  let touchStartY = null;
+  section.addEventListener(
+    "touchstart",
+    (e) => {
+      if (!isActiveSlide()) return;
+      touchStartY = e.touches[0].clientY;
+    },
+    { passive: true },
+  );
+
+  section.addEventListener(
+    "touchmove",
+    (e) => {
+      if (!isActiveSlide() || touchStartY === null) return;
+      const deltaY = touchStartY - e.touches[0].clientY;
+      const goingDown = deltaY > 10;
+      const goingUp = deltaY < -10;
+
+      if ((goingDown && progress < 1) || (goingUp && progress > 0)) {
+        e.preventDefault();
+        e.stopPropagation();
+        setProgress(progress + (goingDown ? STEP : -STEP));
+        touchStartY = e.touches[0].clientY;
+      }
+    },
+    { passive: false },
+  );
+})();
