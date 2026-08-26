@@ -24,22 +24,25 @@ function escapeHtml(str) {
 }
 
 app.post("/api/contact", async (req, res) => {
-  const { name, phone, quantity, email, message } = req.body || {};
+  const { orderType, phone, quantity, email, message } = req.body || {};
 
-  if (!name || !phone || !quantity) {
+  if (!orderType || !phone || !quantity) {
     return res
       .status(400)
-      .json({ error: "name, phone, and quantity are required." });
+      .json({ error: "orderType, phone, and quantity are required." });
   }
+
+  const orderTypeLabel =
+    orderType === "organization" ? "Байгууллага" : "Хувь хүн";
 
   try {
     await transporter.sendMail({
       from: `"Golden Blue Quartz site" <${process.env.SMTP_USER}>`,
       to: process.env.CONTACT_TO || process.env.SMTP_USER,
       replyTo: email || process.env.SMTP_USER,
-      subject: `New order request from ${name} (${quantity} bottles)`,
-      text: `Name: ${name}\nPhone: ${phone}\nQuantity: ${quantity}\nEmail: ${email || "(not provided)"}\n\nMessage:\n${message || "(none)"}`,
-      html: `<p><strong>Name:</strong> ${escapeHtml(name)}</p>
+      subject: `New order request (${orderTypeLabel}, ${quantity} bottles)`,
+      text: `Order type: ${orderTypeLabel}\nPhone: ${phone}\nQuantity: ${quantity}\nEmail: ${email || "(not provided)"}\n\nMessage:\n${message || "(none)"}`,
+      html: `<p><strong>Order type:</strong> ${escapeHtml(orderTypeLabel)}</p>
              <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
              <p><strong>Quantity:</strong> ${escapeHtml(quantity)} bottles</p>
              <p><strong>Email:</strong> ${escapeHtml(email || "(not provided)")}</p>
