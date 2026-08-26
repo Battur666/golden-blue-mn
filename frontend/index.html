@@ -76,8 +76,28 @@
           <div class="scroll-hint" aria-hidden="true">Scroll</div>
         </section>
 
+        <!-- ============ SLIDE — INTRO VIDEO ============ -->
+        <!-- Full-bleed mp4 slide. Drop your file at videos/intro.mp4.
+             Autoplay requires muted + playsinline on every mobile browser;
+             the small unmute button lets people opt into sound. -->
+      <!-- ============ SLIDE — INTRO VIDEO ============ -->
+<section class="swiper-slide slide slide--video" id="intro-video-slide">
+  <video
+    class="intro-video"
+    id="intro-video"
+    src="videos/intro.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+  ></video>
+  <div class="scroll-hint" aria-hidden="true">Scroll</div>
+</section>
+
         <!-- ============ SLIDE 2 — STATEMENT + BOTTLE ============ -->
         <section class="swiper-slide slide slide--statement">
+          <div class="slide__ghost" aria-hidden="true">QUARTZ</div>
           <div class="slide__bg-bottle" aria-hidden="true">
             <img
               src="images/quartz-bottle.jpg"
@@ -105,15 +125,18 @@
         </section>
         <!-- ============ SLIDE 2B/2C — BOTTLE TRANSITION (scroll-linked overlay) ============ -->
 <section class="swiper-slide slide slide--bottle-transition" id="bottle-transition">
+  <div class="slide__ghost" aria-hidden="true">QUARTZ</div>
   <div class="bf-layer bf-layer--bottom slide--bottle-feature--dark" data-layer="bottom">
     <div class="bf-label">[ TRENDY ]</div>
     <div class="bf-circle">
       <img src="images/2b2-image.png" alt="Golden Blue Quartz bottle" />
     </div>
     <p class="bf-caption">
-      Sensitive blue bottle<br />with simple and<br />Golden Blue Quartz
-      нь Шотланд гаралтай вискиний түүхий эдээр БНСУ-д үйлдвэрлэсэн, 36.5
-      хувийн спиртийн агууламжтай премиум виски юм.
+     Sensitive blue bottle
+with simple and
+understated cutting line
+
+
     </p>
   </div>
 
@@ -123,50 +146,49 @@
       <img src="images/2b1-image.png" alt="Golden Blue Quartz bottle" />
     </div>
     <p class="bf-caption">
-      Жимсний баялаг үнэр, карамелийн амтлаг өнгө аяс, самрын зөөлөн амтыг
-      хослуулсан энэхүү бүтээгдэхүүн нь тэнцвэртэй, таатай амтаараа онцлог
-      бөгөөд Monde Selection олон улсын чанарын үнэлгээний алтан шагналыг
-      2025, 2026 онд хүртэв.
+      Quartz's own
+softness by the best
+blending recipe
     </p>
   </div>
-
-  <button class="bf-top" type="button" aria-label="Back to top">TOP</button>
 </section>
-        <!-- ============ SLIDE 3 — ABOUT / HIDDEN INFO TILES ============ -->
-        <section class="swiper-slide slide slide--about">
-          <div class="slide__content">
-            <p class="eyebrow">SMOOTH QUARTZ</p>
-            <h2 class="section-title">[ ABOUT ]<br />[ GOLDEN BLUE QUARTZ ]</h2>
-            <div class="about-grid">
-              <button class="about-tile" type="button">
-                <img src="images/2.png" alt="Golden Blue Quartz bottle" />
-                <span class="about-tile__hidden"
-                  >36.5% ABV<br />Blended spirit</span
-                >
-              </button>
-              <button class="about-tile" type="button">
-                <img src="images/3.png" alt="Botanicals and spices" />
-                <span class="about-tile__hidden"
-                  >Цэцгийн зөөлөн үнэр, ванилийн амтлаг мэдрэмж<br />&amp;
-                  Ванилийн амтлаг байдал, самрын баялаг амт</span
-                >
-              </button>
-              <button class="about-tile" type="button">
-                <img
-                  src="images/neg.png"
-                  alt="Cheese and fruit pairing board"
-                />
-                <span class="about-tile__hidden"
-                  >Best served<br />with a light board</span
-                >
-              </button>
-            </div>
-            <p class="tile-hint" aria-hidden="true">Hover or tap a tile</p>
-          </div>
-        </section>
+<!-- ============ SLIDE 3 — ABOUT / HIDDEN INFO TILES ============ -->
+<section class="swiper-slide slide slide--about">
+  <div class="slide__ghost" aria-hidden="true">QUARTZ</div>
+  <div class="slide__content slide__content--wide">
+    <p class="eyebrow">SMOOTH QUARTZ</p>
+    <h2 class="section-title">[ ABOUT ]<br />[ GOLDEN BLUE QUARTZ ]</h2>
+    <div class="about-grid">
+      <button class="about-tile" type="button">
+        <img src="images/2.png" alt="Golden Blue Quartz bottle" />
+        <span class="about-tile__hidden"
+          >[36.5% ABV]<br />[Blended spirit]</span
+        >
+      </button>
+      <button class="about-tile" type="button">
+        <img src="images/3.png" alt="Botanicals and spices" />
+        <span class="about-tile__hidden"
+          >[Цэцгийн зөөлөн үнэр, ванилийн амтлаг мэдрэмж]<br>
+          [Ванилийн амтлаг байдал, самрын баялаг амт]</span
+        >
+      </button>
+      <button class="about-tile" type="button">
+        <img
+          src="images/neg.png"
+          alt="Cheese and fruit pairing board"
+        />
+        <span class="about-tile__hidden"
+          >[Best served]<br />[with a light board]</span
+        >
+      </button>
+    </div>
+    <p class="tile-hint" aria-hidden="true">Hover or tap a tile</p>
+  </div>
+</section>
 
         <!-- ============ SLIDE 6 — BIG STATEMENTS + VIDEOS ============ -->
         <section class="swiper-slide slide slide--big-statement">
+          <div class="slide__ghost" aria-hidden="true">QUARTZ</div>
           <div class="slide__content slide__content--wide">
             <div class="bs-toprow">
               <span>MEET QUARTZ</span>
@@ -178,8 +200,8 @@
               <h2 class="big-statement">
                 THE FIRST <span class="bs-bracket">[ BLUE ]</span>
               </h2>
-              <a
-                class="bs-video"
+              
+               <a class="bs-video"
                 href="https://www.youtube.com/watch?v=0N_7NSrtbL8&list=PL0QLWrAchadbDWWFGw8ef6qz0slmHdaT9&index=17"
                 target="_blank"
                 rel="noopener"
@@ -221,11 +243,39 @@
                 </span>
               </a>
             </div>
+
+            <!-- 3rd video row — swap YOUR-VIDEO-ID-HERE + the href for the
+                 real upload once you have it. Structure mirrors the two
+                 rows above exactly so styling matches automatically. -->
+            <div class="bs-row">
+              <h2 class="big-statement">
+                STAY IN <span class="bs-bracket">[ BLUE ]</span>
+              </h2>
+              <a
+                class="bs-video"
+                href="https://www.youtube.com/watch?v=YOUR-VIDEO-ID-HERE&list=PL0QLWrAchadbDWWFGw8ef6qz0slmHdaT9"
+                target="_blank"
+                rel="noopener"
+                aria-label="Watch on YouTube"
+              >
+                <img
+                  src="https://img.youtube.com/vi/YOUR-VIDEO-ID-HERE/hqdefault.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+                <span class="bs-video__play" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+              </a>
+            </div>
           </div>
         </section>
 
         <!-- ============ SLIDE — ABOUT THE COMPANY ============ -->
         <section class="swiper-slide slide slide--company">
+          <div class="slide__ghost" aria-hidden="true">QUARTZ</div>
           <div class="slide__content slide__content--wide">
             <h2 class="section-title">БИДНИЙ ТУХАЙ</h2>
             <p class="body-text body-text--light company-intro">
@@ -278,12 +328,13 @@
 
         <!-- ============ SLIDE 7 — MERCH ============ -->
         <section class="swiper-slide slide slide--merch">
+          <div class="slide__ghost" aria-hidden="true">QUARTZ</div>
           <div class="slide__content slide__content--wide">
             <p class="eyebrow">Худалдан авагчийн бэлэг</p>
-            <h2 class="section-title">энэ дээр<br />юу гэхвээ?.</h2>
+            <h2 class="section-title">Accessories <br />for Customers</h2>
 
             <div class="merch-grid">
-              <!-- Tee — hover/tap color swap -->
+              <!-- Tee — hover/tap color swap (unchanged) -->
               <div class="merch-card" data-quartz-hover>
                 <button
                   class="merch-card__media gbq-image-button"
@@ -312,71 +363,68 @@
                 </div>
               </div>
 
-              <!-- Glassware set -->
-              <button class="merch-card merch-card--reveal" type="button">
+              <!-- Glassware set — caption always visible, no hover/tap needed -->
+              <div class="merch-card merch-card--static">
                 <span class="merch-card__media">
                   <img
                     src="images/glassware-set.png"
                     alt="Golden Blue glassware set"
                     loading="lazy"
                   />
-                  <span class="merch-card__overlay">
-                    <strong>Хундаганы цуглуулга</strong>
-                    Бла2Бла2Бла2Бла2 Бла2Бла2Бла2Бла2Бла2Бла2Бла2 Бла2.
-                  </span>
                 </span>
-                <span class="merch-card__info">
+                <div class="merch-card__info">
                   <span class="merch-card__name">GLASSWARE SET</span>
                   <span class="merch-card__detail">4-piece set</span>
-                </span>
-              </button>
+                  
+                  
+                </div>
+              </div>
 
-              <!-- Ice box -->
-              <button class="merch-card merch-card--reveal" type="button">
+              <!-- Ice box — caption always visible, no hover/tap needed -->
+              <div class="merch-card merch-card--static">
                 <span class="merch-card__media">
                   <img
                     src="images/ice-box.png"
                     alt="Golden Blue ice box"
                     loading="lazy"
                   />
-                  <span class="merch-card__overlay">
-                    <strong>Ice Box</strong>
-                    Mirrored lid, silver-crested logo, built for the full serve.
-                  </span>
                 </span>
-                <span class="merch-card__info">
+                <div class="merch-card__info">
                   <span class="merch-card__name">ICE BOX</span>
                   <span class="merch-card__detail">Weighted glass</span>
-                </span>
-              </button>
+                  
+                  
+                </div>
+              </div>
             </div>
-            <p class="tile-hint" aria-hidden="true">Hover or tap a piece</p>
+            <p class="tile-hint" aria-hidden="true">Hover or tap the tee</p>
           </div>
         </section>
 
         <!-- ============ SLIDE 8 — CONTACT ============ -->
         <section class="swiper-slide slide slide--contact">
+          <div class="slide__ghost" aria-hidden="true">QUARTZ</div>
           <div class="slide__content contact-grid">
             <div class="contact-text">
               <p class="eyebrow eyebrow--dark">Захиалга &amp; Холбоо барих</p>
               <h2 class="section-title section-title--dark">
-                Та манай бүтээгдэхүүнийг<br />сонирхож байна уу?
+                Хамтран ажиллах
               </h2>
               <p class="body-text">
                 Та бидэнд мэдээллээ илгээснээр бид танитай эргэн холбогдох
                 болно.
               </p>
               <div class="social-row">
-                <a
-                  href="https://www.instagram.com/goldenblue_mn/"
+                
+                 <a href="https://www.instagram.com/goldenblue_mn/"
                   target="_blank"
                   rel="noopener"
                   aria-label="Instagram"
                   >Instagram</a
                 >
 
-                <a
-                  href="https://www.facebook.com/share/19StkhL5Sr/?mibextid=wwXIfr"
+                
+                 <a href="https://www.facebook.com/share/19StkhL5Sr/?mibextid=wwXIfr"
                   target="_blank"
                   rel="noopener"
                   aria-label="Facebook"

@@ -67,6 +67,16 @@ swiper.on("slideChangeTransitionEnd", () => {
   reveals.forEach((el) => {
     setTimeout(() => el.classList.add("is-visible"), 150);
   });
+
+  const introVideo = document.getElementById("intro-video");
+  if (introVideo) {
+    if (activeSlide.classList.contains("slide--video")) {
+      introVideo.currentTime = 0;
+      introVideo.play().catch(() => {});
+    } else {
+      introVideo.pause();
+    }
+  }
 });
 
 // Reveal slide 1's elements immediately too, since the swiper starts
@@ -83,15 +93,69 @@ document.querySelectorAll(".bf-top").forEach((btn) => {
 });
 
 // ============================================
+// Intro video audio — browsers block autoplay-with-sound unless it
+// happens inside a real user gesture. Scroll/wheel/touchstart do NOT
+// count as a valid gesture for unmuting audio — only click, mousedown,
+// touchend, and keydown reliably do. The video always starts muted so
+// it never fails to autoplay, then we unmute the moment a qualifying
+// gesture fires.
+// ============================================
+(function initIntroVideoAudio() {
+  const video = document.getElementById("intro-video");
+  if (!video) return;
+
+  let unlocked = false;
+
+  function tryUnmute() {
+    if (unlocked) return;
+    video.muted = false;
+    video
+      .play()
+      .then(() => {
+        unlocked = true;
+      })
+      .catch(() => {
+        // Still blocked — revert to muted so playback never breaks.
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+  }
+
+  // Case 1: visitor just clicked "Тийм" on the age gate — that click is
+  // a real gesture, so unmuting right now will be allowed.
+  document.getElementById("age-yes")?.addEventListener("click", () => {
+    // Give the video a tick to be the active slide before unmuting.
+    setTimeout(tryUnmute, 50);
+  });
+
+  // Case 2: age gate was already confirmed earlier this session, so
+  // there's no fresh click when the page loads. Unlock sound on the
+  // first *qualifying* gesture instead. 'wheel' and 'touchstart' are
+  // deliberately excluded — browsers don't treat scrolling as a real
+  // activation gesture for audio, so listening for it never unlocks
+  // anything.
+  const firstInteractionEvents = ["click", "mousedown", "touchend", "keydown"];
+  function onFirstInteraction() {
+    tryUnmute();
+    firstInteractionEvents.forEach((evt) =>
+      document.removeEventListener(evt, onFirstInteraction),
+    );
+  }
+  firstInteractionEvents.forEach((evt) =>
+    document.addEventListener(evt, onFirstInteraction, { passive: true }),
+  );
+})();
+
+// ============================================
 // Hover-reveal elements: on touch devices there is no hover, so
 // auto-reveal them as they scroll into view instead.
+// (Glassware/ice box merch cards are no longer part of this — their
+// captions are always visible, see styles.css .merch-card--static)
 // ============================================
 const isTouch = window.matchMedia("(hover: none)").matches;
 
 if (isTouch) {
-  const revealables = document.querySelectorAll(
-    ".reveal-word, .about-tile, .merch-card--reveal",
-  );
+  const revealables = document.querySelectorAll(".reveal-word, .about-tile");
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -177,25 +241,36 @@ form.addEventListener("submit", async (e) => {
     status.classList.add("is-error");
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = "Таны хүсэлтийг илгээж байна.";
+    submitBtn.textContent = "Захиалга баталгаажуулах";
   }
 });
+
 // ============================================
-// Scroll-linked overlay: TRENDY layer stays fixed while the visitor
-// scrolls, until SMOOTH QUARTZ has fully faded in on top of it —
-// then, and only then, does the next wheel/swipe move Swiper forward.
+// Scroll-linked overlay: the TRENDY (bottom) layer stays put while the
+// visitor scrolls on this slide. Scrolling down makes the SMOOTH QUARTZ
+// (top) layer rise up from below while fading in, and the TRENDY layer
+// dissolves away underneath it. Only once SMOOTH QUARTZ is fully in view
+// does the next wheel/swipe move Swiper on to the next real slide.
+// Scrolling back up reverses the crossfade before releasing control
+// back to Swiper going upward.
 // ============================================
 (function bottleTransition() {
   const section = document.getElementById("bottle-transition");
   if (!section) return;
   const topLayer = section.querySelector(".bf-layer--top");
+  const bottomLayer = section.querySelector(".bf-layer--bottom");
   let progress = 0; // 0 = TRENDY fully visible, 1 = SMOOTH QUARTZ fully covers it
-  const STEP = 0.15;
+  const STEP = 0.06;
+  const RISE_DISTANCE = 60; // px the top layer travels while fading in
 
   function setProgress(p) {
     progress = Math.min(1, Math.max(0, p));
+    // Top layer: fades in while sliding up from below.
     topLayer.style.opacity = progress;
+    topLayer.style.transform = `translateY(${(1 - progress) * RISE_DISTANCE}px)`;
     topLayer.classList.toggle("is-active", progress > 0.5);
+    // Bottom layer: dissolves away as the top layer takes over.
+    bottomLayer.style.opacity = 1 - progress * 0.9;
   }
 
   function isActiveSlide() {
