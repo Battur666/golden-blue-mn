@@ -38,12 +38,20 @@
     setVerified();
     gate.hidden = true;
     document.body.classList.remove("gate-locked");
+    if (typeof playVideoSlideIfActive === "function") playVideoSlideIfActive();
   });
   noBtn.addEventListener("click", () => {
     card.hidden = true;
     blocked.hidden = false;
   });
 })();
+
+// If the gate was already confirmed in an earlier visit this session,
+// there's no "Yes" click to hook into on this load — check once the
+// page (and Swiper) is ready instead.
+window.addEventListener("load", () => {
+  if (typeof playVideoSlideIfActive === "function") playVideoSlideIfActive();
+});
 
 // ============================================
 // Fullpage swiper (vertical, touch + mousewheel + wheel)
@@ -58,6 +66,19 @@ const swiper = new Swiper("#quartz-swiper", {
   pagination: { el: ".swiper-pagination", clickable: true },
   touchStartPreventDefault: false,
 });
+function playVideoSlideIfActive() {
+  const gate = document.getElementById("age-gate");
+  const introVideos = document.querySelectorAll(".intro-video");
+  if (!introVideos.length) return;
+  const gateIsOpen = gate && !gate.hidden;
+  const activeSlide = swiper.slides[swiper.activeIndex];
+  const isVideoSlide =
+    activeSlide && activeSlide.classList.contains("slide--video");
+
+  if (!gateIsOpen && isVideoSlide) {
+    introVideos.forEach((v) => v.play().catch(() => {}));
+  }
+}
 
 swiper.on("slideChangeTransitionEnd", () => {
   const activeSlide = swiper.slides[swiper.activeIndex];
@@ -69,8 +90,10 @@ swiper.on("slideChangeTransitionEnd", () => {
   });
 
   const introVideos = document.querySelectorAll(".intro-video");
+  const gate = document.getElementById("age-gate");
+  const gateIsOpen = gate && !gate.hidden;
   if (introVideos.length) {
-    if (activeSlide.classList.contains("slide--video")) {
+    if (activeSlide.classList.contains("slide--video") && !gateIsOpen) {
       introVideos.forEach((v) => {
         v.currentTime = 0;
         v.play().catch(() => {});
@@ -80,7 +103,6 @@ swiper.on("slideChangeTransitionEnd", () => {
     }
   }
 });
-
 // Reveal slide 1's elements immediately too, since the swiper starts
 // there and "slideChangeTransitionEnd" only fires on actual transitions.
 window.addEventListener("load", () => {
