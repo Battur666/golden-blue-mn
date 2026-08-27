@@ -49,81 +49,70 @@ body.gate-locked {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #cfe0f0;
+  background: var(--navy);
 }
 .age-gate[hidden] {
   display: none;
 }
+
+/* Photo collage backdrop — every tile is forced to the same grid-cell
+   size regardless of the source photo's own dimensions, thanks to
+   object-fit: cover. Add/remove <img> tags in the HTML and the grid
+   reflows on its own, no CSS changes needed. */
+.age-gate__collage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-auto-rows: 1fr;
+}
+.age-gate__collage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .age-gate::before {
   content: "";
   position: absolute;
-  inset: -20%;
-  background:
-    radial-gradient(
-      circle at 20% 30%,
-      rgba(120, 130, 230, 0.55),
-      transparent 45%
-    ),
-    radial-gradient(
-      circle at 75% 20%,
-      rgba(200, 170, 230, 0.5),
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 60% 70%,
-      rgba(150, 200, 240, 0.55),
-      transparent 45%
-    ),
-    radial-gradient(
-      circle at 25% 80%,
-      rgba(230, 220, 190, 0.4),
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 85% 85%,
-      rgba(180, 210, 240, 0.5),
-      transparent 45%
-    );
-  filter: blur(60px);
-  animation: gateWave 20s ease-in-out infinite;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 24, 48, 0.55) 0%,
+    rgba(18, 35, 79, 0.65) 50%,
+    rgba(10, 24, 48, 0.78) 100%
+  );
 }
-@keyframes gateWave {
-  0% {
-    transform: translate(0%, 0%) scale(1);
-  }
-  25% {
-    transform: translate(-5%, 5%) scale(1.1);
-  }
-  50% {
-    transform: translate(5%, -5%) scale(1.05);
-  }
-  75% {
-    transform: translate(-3%, -3%) scale(1.1);
-  }
-  100% {
-    transform: translate(0%, 0%) scale(1);
-  }
-}
+
 .age-gate__card {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   text-align: center;
   max-width: min(380px, 88vw);
-  padding: clamp(24px, 5vw, 40px);
+  padding: clamp(28px, 5vw, 44px);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(2px) saturate(1.3) brightness(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3) brightness(1.6);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
 }
 .age-gate__mark {
   font-family: var(--font-heading);
   font-size: clamp(18px, 3vw, 22px);
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: #111;
+  color: #fff;
   margin: 0 0 24px;
 }
 .age-gate__mark em {
   display: block;
   font-style: normal;
   font-weight: 400;
-  color: #444;
+  color: #9fb3ff;
   margin-top: 2px;
 }
 .age-gate__card h2 {
@@ -131,12 +120,12 @@ body.gate-locked {
   font-size: clamp(16px, 2.4vw, 18px);
   font-weight: 600;
   margin: 0 0 8px;
-  color: #111;
+  color: #fff;
 }
 .age-gate__sub {
   font-family: var(--font-body);
   font-size: clamp(12px, 1.8vw, 13px);
-  color: #555;
+  color: rgba(255, 255, 255, 0.7);
   margin: 0 0 28px;
 }
 .age-gate__actions {
@@ -148,9 +137,9 @@ body.gate-locked {
   min-width: 110px;
   padding: 12px 28px;
   border-radius: 999px;
-  border: 1.5px solid #111;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
   background: transparent;
-  color: #111;
+  color: #fff;
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 600;
@@ -159,17 +148,20 @@ body.gate-locked {
   transition:
     background 0.2s ease,
     color 0.2s ease,
+    border-color 0.2s ease,
     transform 0.15s ease;
 }
 .age-gate__actions .btn:hover,
 .age-gate__actions .btn.is-selected {
-  background: #111;
+  background: var(--blue);
+  border-color: var(--blue);
   color: #fff;
   transform: translateY(-1px);
 }
 .age-gate__blocked {
   position: absolute;
   inset: 0;
+  z-index: 3;
   align-items: center;
   justify-content: center;
   background: var(--navy);
@@ -187,6 +179,17 @@ body.gate-locked {
   max-width: 380px;
   font-size: 15px;
   line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .age-gate__collage {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .age-gate__collage {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 /* ============ Brand mark (no header nav) ============ */
@@ -295,13 +298,35 @@ body.gate-locked {
   inset: 0;
   width: 100%;
   height: 100%;
+  display: block;
+}
+.intro-video--fg {
+  z-index: 2;
   object-fit: cover;
+}
+.intro-video--bg {
   z-index: 1;
+  object-fit: cover;
+  filter: blur(35px) brightness(0.5);
+  transform: scale(1.2);
+  display: none;
 }
 .slide--video .scroll-hint {
   z-index: 3;
 }
 
+/* On narrow/tall screens, cover crops too aggressively (landscape video
+   vs. portrait screen) — switch the foreground video to "contain" so
+   the whole frame is visible, with the blurred bg video filling in
+   behind it instead of black bars. Desktop/landscape is unaffected. */
+@media (max-width: 700px) {
+  .intro-video--bg {
+    display: block;
+  }
+  .intro-video--fg {
+    object-fit: contain;
+  }
+}
 /* ============ Bottle transition slide ============ */
 .slide--bottle-feature {
   position: relative;
@@ -435,14 +460,17 @@ body.gate-locked {
   color: #fff;
 }
 
-/* Scroll-linked layers: the JS drives opacity + a rise-up transform on
-   the top layer, and a dissolve (opacity) on the bottom layer, so the
-   next screen fades in from below while the first screen fades away
-   underneath it — see script.js bottleTransition(). */
+/* Scroll-linked layers: the JS drives an eased opacity + rise-up
+   transform on the top layer, and a dissolve on the bottom layer, so
+   the next screen fades in from below while the first fades away
+   underneath it — see script.js bottleTransition(). touch-action: none
+   stops the phone's native scroll from fighting the JS mid-gesture,
+   which is what removes most mobile jank. */
 .slide--bottle-transition {
   position: relative;
   padding: 0;
   overflow: hidden;
+  touch-action: none;
 }
 .bf-layer {
   position: absolute;
@@ -463,9 +491,15 @@ body.gate-locked {
   transform: translateY(48px);
   pointer-events: none;
   transition:
-    opacity 0.3s ease-out,
-    transform 0.3s ease-out;
+    opacity 0.15s ease-out,
+    transform 0.15s ease-out;
   will-change: opacity, transform;
+}
+.bf-layer--top.is-dragging {
+  transition: none;
+}
+.bf-layer--top.is-active {
+  pointer-events: auto;
 }
 .bf-layer--top.is-active {
   pointer-events: auto;
@@ -765,6 +799,7 @@ body.gate-locked {
   aspect-ratio: 3/4;
   border-radius: 4px;
   overflow: hidden;
+  cursor: pointer;
 }
 .about-tile img {
   width: 100%;
@@ -810,8 +845,10 @@ body.gate-locked {
   color: var(--blue);
   margin-bottom: 10px;
 }
+/* Reveal only on real hover (desktop mouse) or the explicit
+   .is-revealed class (toggled by tap on any device via script.js) —
+   no scroll-into-view auto-pop anymore. */
 .about-tile:hover .about-tile__hidden,
-.about-tile:focus-visible .about-tile__hidden,
 .about-tile.is-revealed .about-tile__hidden {
   opacity: 1;
 }

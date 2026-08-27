@@ -68,13 +68,15 @@ swiper.on("slideChangeTransitionEnd", () => {
     setTimeout(() => el.classList.add("is-visible"), 150);
   });
 
-  const introVideo = document.getElementById("intro-video");
-  if (introVideo) {
+  const introVideos = document.querySelectorAll(".intro-video");
+  if (introVideos.length) {
     if (activeSlide.classList.contains("slide--video")) {
-      introVideo.currentTime = 0;
-      introVideo.play().catch(() => {});
+      introVideos.forEach((v) => {
+        v.currentTime = 0;
+        v.play().catch(() => {});
+      });
     } else {
-      introVideo.pause();
+      introVideos.forEach((v) => v.pause());
     }
   }
 });
@@ -154,14 +156,14 @@ document.querySelectorAll(".bf-top").forEach((btn) => {
 
 // ============================================
 // Hover-reveal elements: on touch devices there is no hover, so
-// auto-reveal them as they scroll into view instead.
-// (Glassware/ice box merch cards are no longer part of this — their
-// captions are always visible, see styles.css .merch-card--static)
+// auto-reveal them as they scroll into view instead. About-tile
+// captions are intentionally excluded from this — they only reveal on
+// deliberate tap now, handled separately below.
 // ============================================
 const isTouch = window.matchMedia("(hover: none)").matches;
 
 if (isTouch) {
-  const revealables = document.querySelectorAll(".reveal-word, .about-tile");
+  const revealables = document.querySelectorAll(".reveal-word");
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -172,6 +174,17 @@ if (isTouch) {
   );
   revealables.forEach((el) => observer.observe(el));
 }
+
+// ============================================
+// About tiles — tap to reveal the hidden caption, tap again to hide.
+// Works identically for mouse click and touch tap since these are real
+// <button> elements; mirrors the :hover behavior on non-touch devices.
+// ============================================
+document.querySelectorAll(".about-tile").forEach((tile) => {
+  tile.addEventListener("click", () => {
+    tile.classList.toggle("is-revealed");
+  });
+});
 
 // ============================================
 // Merch tee color-swap — targets .merch-card wrapper. Click/tap toggles
@@ -205,13 +218,11 @@ if (isTouch) {
 // ============================================
 // Contact / order form
 // ============================================
-// NOTE: replace YOUR-BACKEND-URL-HERE with your real Render URL once
-// the backend is deployed (see backend deployment steps).
 const CONTACT_ENDPOINT =
   window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1"
     ? "http://localhost:3001/api/contact"
-    : "https://golden-blue-mn.onrender.com/api/contact";
+    : "https://api.goldenblue.mn/api/contact";
 
 const form = document.getElementById("contact-form");
 const status = document.getElementById("contact-status");
@@ -253,30 +264,46 @@ form.addEventListener("submit", async (e) => {
 
 // ============================================
 // Scroll-linked overlay: the TRENDY (bottom) layer stays put while the
-// visitor scrolls on this slide. Scrolling down makes the SMOOTH QUARTZ
-// (top) layer rise up from below while fading in, and the TRENDY layer
-// dissolves away underneath it. Only once SMOOTH QUARTZ is fully in view
-// does the next wheel/swipe move Swiper on to the next real slide.
-// Scrolling back up reverses the crossfade before releasing control
-// back to Swiper going upward.
+// visitor scrolls on this slide. Scrolling/dragging down makes the
+// SMOOTH QUARTZ (top) layer rise up from below while fading in, and the
+// TRENDY layer dissolves away underneath it. Only once SMOOTH QUARTZ is
+// fully in view does the next wheel/swipe move Swiper on to the next
+// real slide. A requestAnimationFrame easing loop renders the visual
+// state every frame rather than writing styles synchronously on every
+// raw touchmove/wheel event — this is what makes it feel smooth even
+// when touchmove fires unevenly on phones.
 // ============================================
 (function bottleTransition() {
   const section = document.getElementById("bottle-transition");
   if (!section) return;
   const topLayer = section.querySelector(".bf-layer--top");
   const bottomLayer = section.querySelector(".bf-layer--bottom");
-  let progress = 0; // 0 = TRENDY fully visible, 1 = SMOOTH QUARTZ fully covers it
-  const STEP = 0.06;
-  const RISE_DISTANCE = 60; // px the top layer travels while fading in
+  let progress = 0;
+  const STEP = 0.09;
+  const RISE_DISTANCE = 60;
 
-  function setProgress(p) {
-    progress = Math.min(1, Math.max(0, p));
-    // Top layer: fades in while sliding up from below.
+  // rAF only batches the DOM writes to once per frame — it does NOT
+  // ease/lag behind the input. Touch drag should feel 1:1 attached to
+  // the finger; easing here is what caused the "sketchy" disconnected
+  // feel. This is the actual fix for mobile jank (fewer layout writes),
+  // not artificial smoothing.
+  let scheduled = false;
+  function applyStyles() {
+    scheduled = false;
     topLayer.style.opacity = progress;
     topLayer.style.transform = `translateY(${(1 - progress) * RISE_DISTANCE}px)`;
     topLayer.classList.toggle("is-active", progress > 0.5);
-    // Bottom layer: dissolves away as the top layer takes over.
     bottomLayer.style.opacity = 1 - progress * 0.9;
+  }
+  function scheduleRender() {
+    if (!scheduled) {
+      scheduled = true;
+      requestAnimationFrame(applyStyles);
+    }
+  }
+  function setProgress(p) {
+    progress = Math.min(1, Math.max(0, p));
+    scheduleRender();
   }
 
   function isActiveSlide() {
@@ -289,29 +316,33 @@ form.addEventListener("submit", async (e) => {
       if (!isActiveSlide()) return;
       const goingDown = e.deltaY > 0;
       const goingUp = e.deltaY < 0;
-
       if (goingDown && progress < 1) {
         e.preventDefault();
         e.stopPropagation();
+        topLayer.classList.remove("is-dragging");
         setProgress(progress + STEP);
       } else if (goingUp && progress > 0) {
         e.preventDefault();
         e.stopPropagation();
+        topLayer.classList.remove("is-dragging");
         setProgress(progress - STEP);
       }
-      // else: already at the limit in that direction — let the event
-      // through so Swiper advances to the next/previous real slide.
     },
     { passive: false },
   );
 
-  // Touch support — same idea, using drag distance instead of wheel delta.
+  // Touch: track total drag distance from touchstart (absolute, not
+  // incremental) so there's no drift, and disable the CSS transition
+  // while actively dragging so the layer follows the finger exactly.
   let touchStartY = null;
+  let touchStartProgress = 0;
   section.addEventListener(
     "touchstart",
     (e) => {
       if (!isActiveSlide()) return;
       touchStartY = e.touches[0].clientY;
+      touchStartProgress = progress;
+      topLayer.classList.add("is-dragging");
     },
     { passive: true },
   );
@@ -321,16 +352,25 @@ form.addEventListener("submit", async (e) => {
     (e) => {
       if (!isActiveSlide() || touchStartY === null) return;
       const deltaY = touchStartY - e.touches[0].clientY;
-      const goingDown = deltaY > 10;
-      const goingUp = deltaY < -10;
+      const nextProgress = touchStartProgress + deltaY / 250;
+      const atLowerEdge = deltaY < 0 && progress <= 0;
+      const atUpperEdge = deltaY > 0 && progress >= 1;
 
-      if ((goingDown && progress < 1) || (goingUp && progress > 0)) {
+      if (!atLowerEdge && !atUpperEdge) {
         e.preventDefault();
         e.stopPropagation();
-        setProgress(progress + (goingDown ? STEP : -STEP));
-        touchStartY = e.touches[0].clientY;
+        setProgress(nextProgress);
       }
     },
     { passive: false },
+  );
+
+  section.addEventListener(
+    "touchend",
+    () => {
+      touchStartY = null;
+      topLayer.classList.remove("is-dragging");
+    },
+    { passive: true },
   );
 })();

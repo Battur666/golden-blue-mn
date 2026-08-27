@@ -33,25 +33,53 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- ============ AGE GATE ============ -->
-    <div class="age-gate" id="age-gate">
-      <div class="age-gate__card">
-        <p class="age-gate__mark">GOLDEN BLUE <em>QUARTZ</em></p>
-        <h2>Та 21 нас хүрсэн үү?</h2>
-        <p class="age-gate__sub">Зөвхөн 21 нас хүрсэн хүн зочлох боломжтой.</p>
-        <div class="age-gate__actions">
-          <button class="btn btn--gate-yes" id="age-yes" type="button">
-            Тийм
-          </button>
-          <button class="btn btn--gate-no" id="age-no" type="button">
-            Үгүй
-          </button>
-        </div>
-      </div>
-      <div class="age-gate__blocked" id="age-blocked" hidden>
-        <p>Уучлаарай — Та 21 нас хүрээгүй учир нэвтрэх боломжгүй байна.</p>
-      </div>
+<!-- ============ AGE GATE ============ -->
+<div class="age-gate" id="age-gate">
+  <div class="age-gate__collage" aria-hidden="false">
+    <img src="images/age-gate1.png" alt="" />
+    <img src="images/age-gate2.png" alt="" />
+    <img src="images/age-gate3.png" alt="" />
+    <img src="images/age-gate4.png" alt="" />
+    <img src="images/age-gate5.png" alt="" />
+    <img src="images/age-gate6.png" alt="" />
+    <img src="images/age-gate7.png" alt="" loading="lazy" />
+    <img src="images/age-gate8.png" alt="" loading="lazy" />
+    <img src="images/age-gate9.png" alt="" loading="lazy" />
+    <img src="images/age-gate10.png" alt="" loading="lazy" />
+    <img src="images/age-gate11.png" alt="" loading="lazy" />
+    <img src="images/age-gate12.png" alt="" loading="lazy" />
+    <img src="images/age-gate13.png" alt="" loading="lazy" />
+    <img src="images/age-gate14.png" alt="" loading="lazy" />
+    <img src="images/age-gate15.png" alt="" loading="lazy" />
+    <img src="images/age-gate16.png" alt="" loading="lazy" />
+    <img src="images/age-gate17.png" alt="" loading="lazy" />
+    <img src="images/age-gate18.png" alt="" loading="lazy" />
+    <img src="images/age-gate19.png" alt="" loading="lazy" />
+    <img src="images/age-gate20.png" alt="" loading="lazy" />
+    <img src="images/age-gate21.png" alt="" loading="lazy" />
+    <img src="images/age-gate22.png" alt="" loading="lazy" />
+    <img src="images/age-gate23.png" alt="" loading="lazy" />
+    <img src="images/age-gate24.png" alt="" loading="lazy" />
+    <img src="images/age-gate25.png" alt="" loading="lazy" />
+    <img src="images/age-gate26.png" alt="" loading="lazy" />
+  </div>
+  <div class="age-gate__card">
+    <p class="age-gate__mark">GOLDEN BLUE <em>QUARTZ</em></p>
+    <h2>Та 21 нас хүрсэн үү?</h2>
+    <p class="age-gate__sub">Зөвхөн 21 нас хүрсэн хүн зочлох боломжтой.</p>
+    <div class="age-gate__actions">
+      <button class="btn btn--gate-yes" id="age-yes" type="button">
+        Тийм
+      </button>
+      <button class="btn btn--gate-no" id="age-no" type="button">
+        Үгүй
+      </button>
     </div>
+  </div>
+  <div class="age-gate__blocked" id="age-blocked" hidden>
+    <p>Уучлаарай — Та 21 нас хүрээгүй учир нэвтрэх боломжгүй байна.</p>
+  </div>
+</div>
 
     <!-- No header nav bar — the swiper itself is the navigation. Just a small fixed mark. -->
     <div class="brand-mark" aria-hidden="true">GOLDEN BLUE <em>QUARTZ</em></div>
@@ -62,10 +90,20 @@
         <!-- Full-bleed mp4 slide. Drop your file at videos/intro.mp4.
              Autoplay requires muted + playsinline on every mobile browser;
              the small unmute button lets people opt into sound. -->
-      <!-- ============ SLIDE 1— INTRO VIDEO ============ -->
+<!-- ============ SLIDE 1— INTRO VIDEO ============ -->
 <section class="swiper-slide slide slide--video" id="intro-video-slide">
   <video
-    class="intro-video"
+    class="intro-video intro-video--bg"
+    aria-hidden="true"
+    src="videos/intro.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+  ></video>
+  <video
+    class="intro-video intro-video--fg"
     id="intro-video"
     src="videos/intro.mp4"
     autoplay
@@ -156,7 +194,7 @@ blending recipe
   <div class="slide__ghost" aria-hidden="true">QUARTZ</div>
   <div class="slide__content slide__content--wide">
     <p class="eyebrow">SMOOTH QUARTZ</p>
-    <h2 class="section-title">[ ABOUT ]<br />[ GOLDEN BLUE QUARTZ ]</h2>
+    <h2 class="section-title">[ BASIC ]</h2>
     <div class="about-grid">
   <button class="about-tile" type="button">
     <img src="images/2.png" alt="Golden Blue Quartz bottle" />
