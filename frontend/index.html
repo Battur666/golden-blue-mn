@@ -58,7 +58,25 @@
 
     <div class="swiper" id="quartz-swiper">
       <div class="swiper-wrapper">
-        <!-- ============ SLIDE 1 — HERO ============ -->
+                <!-- ============ SLIDE — INTRO VIDEO ============ -->
+        <!-- Full-bleed mp4 slide. Drop your file at videos/intro.mp4.
+             Autoplay requires muted + playsinline on every mobile browser;
+             the small unmute button lets people opt into sound. -->
+      <!-- ============ SLIDE 1— INTRO VIDEO ============ -->
+<section class="swiper-slide slide slide--video" id="intro-video-slide">
+  <video
+    class="intro-video"
+    id="intro-video"
+    src="videos/intro.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+  ></video>
+  <div class="scroll-hint" aria-hidden="true">Scroll</div>
+</section>
+        <!-- ============ SLIDE 2 — HERO ============ -->
         <section class="swiper-slide slide slide--hero">
           <div class="slide__ghost" aria-hidden="true">QUARTZ</div>
           <div class="slide__content">
@@ -76,26 +94,7 @@
           <div class="scroll-hint" aria-hidden="true">Scroll</div>
         </section>
 
-        <!-- ============ SLIDE — INTRO VIDEO ============ -->
-        <!-- Full-bleed mp4 slide. Drop your file at videos/intro.mp4.
-             Autoplay requires muted + playsinline on every mobile browser;
-             the small unmute button lets people opt into sound. -->
-      <!-- ============ SLIDE — INTRO VIDEO ============ -->
-<section class="swiper-slide slide slide--video" id="intro-video-slide">
-  <video
-    class="intro-video"
-    id="intro-video"
-    src="videos/intro.mp4"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-  ></video>
-  <div class="scroll-hint" aria-hidden="true">Scroll</div>
-</section>
-
-        <!-- ============ SLIDE 2 — STATEMENT + BOTTLE ============ -->
+        <!-- ============ SLIDE 3 — STATEMENT + BOTTLE ============ -->
         <section class="swiper-slide slide slide--statement">
           <div class="slide__ghost" aria-hidden="true">QUARTZ</div>
           <div class="slide__bg-bottle" aria-hidden="true">
@@ -119,11 +118,11 @@
             <p class="statement-desc">
               Golden Blue-ийн олон жилийн туршлага, мэдлэгт тулгуурлан бүтээсэн,
               Хэрэглэгчдийн амтанд нийцсэн шинэ төрлийн виски Golden Blue
-              Quartz.
+              Quartz.Кварц шүүлтүүрийн аргаар боловсруулж, вискиний баялаг үнэр, амтыг хадгалан, илүү цэвэр, зөөлөн, тэнцвэртэй амт болон торгомсог мэдрэмжийг бүрдүүлнэ.
             </p>
           </div>
         </section>
-        <!-- ============ SLIDE 2B/2C — BOTTLE TRANSITION (scroll-linked overlay) ============ -->
+        <!-- ============ SLIDE 3B/3C — BOTTLE TRANSITION (scroll-linked overlay) ============ -->
 <section class="swiper-slide slide slide--bottle-transition" id="bottle-transition">
   <div class="slide__ghost" aria-hidden="true">QUARTZ</div>
   <div class="bf-layer bf-layer--bottom slide--bottle-feature--dark" data-layer="bottom">
@@ -152,41 +151,43 @@ blending recipe
     </p>
   </div>
 </section>
-<!-- ============ SLIDE 3 — ABOUT / HIDDEN INFO TILES ============ -->
+<!-- ============ SLIDE 4 — ABOUT / HIDDEN INFO TILES ============ -->
 <section class="swiper-slide slide slide--about">
   <div class="slide__ghost" aria-hidden="true">QUARTZ</div>
   <div class="slide__content slide__content--wide">
     <p class="eyebrow">SMOOTH QUARTZ</p>
     <h2 class="section-title">[ ABOUT ]<br />[ GOLDEN BLUE QUARTZ ]</h2>
     <div class="about-grid">
-      <button class="about-tile" type="button">
-        <img src="images/2.png" alt="Golden Blue Quartz bottle" />
-        <span class="about-tile__hidden"
-          >[36.5% ABV]<br />[Blended spirit]</span
-        >
-      </button>
-      <button class="about-tile" type="button">
-        <img src="images/3.png" alt="Botanicals and spices" />
-        <span class="about-tile__hidden"
-          >[Цэцгийн зөөлөн үнэр, ванилийн амтлаг мэдрэмж]<br>
-          [Ванилийн амтлаг байдал, самрын баялаг амт]</span
-        >
-      </button>
-      <button class="about-tile" type="button">
-        <img
-          src="images/neg.png"
-          alt="Cheese and fruit pairing board"
-        />
-        <span class="about-tile__hidden"
-          >[Best served]<br />[with a light board]</span
-        >
-      </button>
-    </div>
+  <button class="about-tile" type="button">
+    <img src="images/2.png" alt="Golden Blue Quartz bottle" />
+    <span class="about-tile__hidden">
+      <span class="about-tile__hidden-title">[ BASIC ]</span>
+      <span class="about-tile__hidden-body">[ TYPE ]<br /> Whisky <br /> [ ABV ]<br /> 36.5% <br />[ Origin ]<br />Scottland <br />[ Volume ]<br />700ML</span>
+    </span>
+  </button>
+  <button class="about-tile" type="button">
+    <img src="images/3.png" alt="Botanicals and spices" />
+    <span class="about-tile__hidden">
+      <span class="about-tile__hidden-title">[ QUALITY ]</span>
+      <span class="about-tile__hidden-body"
+        > [ Nose ]<br />Цэцгийн зөөлөн үнэр, ванилийн амтлаг мэдрэмж<br />
+         [ Taste ]<br />Ванилийн амтлаг байдал, самрын баялаг амт</span
+      >
+    </span>
+  </button>
+  <button class="about-tile" type="button">
+    <img src="images/neg.png" alt="Cheese and fruit pairing board" />
+    <span class="about-tile__hidden">
+      <span class="about-tile__hidden-title">[ TASTING TIPS ]</span>
+      <span class="about-tile__hidden-body">[ Food ]<br />Cheeze / Pasta / Nuts</span>
+    </span>
+  </button>
+</div>
     <p class="tile-hint" aria-hidden="true">Hover or tap a tile</p>
   </div>
 </section>
 
-        <!-- ============ SLIDE 6 — BIG STATEMENTS + VIDEOS ============ -->
+        <!-- ============ SLIDE 5 — BIG STATEMENTS + VIDEOS ============ -->
         <section class="swiper-slide slide slide--big-statement">
           <div class="slide__ghost" aria-hidden="true">QUARTZ</div>
           <div class="slide__content slide__content--wide">
@@ -247,33 +248,10 @@ blending recipe
             <!-- 3rd video row — swap YOUR-VIDEO-ID-HERE + the href for the
                  real upload once you have it. Structure mirrors the two
                  rows above exactly so styling matches automatically. -->
-            <div class="bs-row">
-              <h2 class="big-statement">
-                STAY IN <span class="bs-bracket">[ BLUE ]</span>
-              </h2>
-              <a
-                class="bs-video"
-                href="https://www.youtube.com/watch?v=YOUR-VIDEO-ID-HERE&list=PL0QLWrAchadbDWWFGw8ef6qz0slmHdaT9"
-                target="_blank"
-                rel="noopener"
-                aria-label="Watch on YouTube"
-              >
-                <img
-                  src="https://img.youtube.com/vi/YOUR-VIDEO-ID-HERE/hqdefault.jpg"
-                  alt=""
-                  loading="lazy"
-                />
-                <span class="bs-video__play" aria-hidden="true">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </span>
-              </a>
-            </div>
           </div>
         </section>
 
-        <!-- ============ SLIDE — ABOUT THE COMPANY ============ -->
+        <!-- ============ SLIDE 6 — ABOUT THE COMPANY ============ -->
         <section class="swiper-slide slide slide--company">
           <div class="slide__ghost" aria-hidden="true">QUARTZ</div>
           <div class="slide__content slide__content--wide">

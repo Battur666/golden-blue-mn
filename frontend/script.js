@@ -98,16 +98,19 @@ document.querySelectorAll(".bf-top").forEach((btn) => {
 // count as a valid gesture for unmuting audio — only click, mousedown,
 // touchend, and keydown reliably do. The video always starts muted so
 // it never fails to autoplay, then we unmute the moment a qualifying
-// gesture fires.
+// gesture fires — but never for a click inside the age gate itself,
+// so pressing "No" can never trigger sound.
 // ============================================
 (function initIntroVideoAudio() {
   const video = document.getElementById("intro-video");
+  const gate = document.getElementById("age-gate");
   if (!video) return;
 
   let unlocked = false;
+  let blocked = false;
 
   function tryUnmute() {
-    if (unlocked) return;
+    if (unlocked || blocked) return;
     video.muted = false;
     video
       .play()
@@ -115,27 +118,30 @@ document.querySelectorAll(".bf-top").forEach((btn) => {
         unlocked = true;
       })
       .catch(() => {
-        // Still blocked — revert to muted so playback never breaks.
         video.muted = true;
         video.play().catch(() => {});
       });
   }
 
-  // Case 1: visitor just clicked "Тийм" on the age gate — that click is
-  // a real gesture, so unmuting right now will be allowed.
+  // "No" — visitor isn't allowed on the site. Stop the video entirely
+  // and permanently block any future unlock attempt.
+  document.getElementById("age-no")?.addEventListener("click", () => {
+    blocked = true;
+    video.muted = true;
+    video.pause();
+  });
+
+  // "Yes" — that click is a real gesture, so unmuting now is allowed.
   document.getElementById("age-yes")?.addEventListener("click", () => {
-    // Give the video a tick to be the active slide before unmuting.
     setTimeout(tryUnmute, 50);
   });
 
-  // Case 2: age gate was already confirmed earlier this session, so
-  // there's no fresh click when the page loads. Unlock sound on the
-  // first *qualifying* gesture instead. 'wheel' and 'touchstart' are
-  // deliberately excluded — browsers don't treat scrolling as a real
-  // activation gesture for audio, so listening for it never unlocks
-  // anything.
+  // Age gate already confirmed earlier this session — unlock on the
+  // first qualifying gesture anywhere on the page EXCEPT inside the
+  // age gate itself (that's handled by the two listeners above).
   const firstInteractionEvents = ["click", "mousedown", "touchend", "keydown"];
-  function onFirstInteraction() {
+  function onFirstInteraction(e) {
+    if (gate && !gate.hidden && gate.contains(e.target)) return;
     tryUnmute();
     firstInteractionEvents.forEach((evt) =>
       document.removeEventListener(evt, onFirstInteraction),
